@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+<div class="accordion" id="myLoc">
+  <div class="accordion-item">
+    <h3 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Your current location
+      </button>
+    </h3>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#myLoc">
+      <div class="accordion-body">
+        Latitude <p id="lat"></p>
+        Longitude <p id="lon"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var lat;
+  var lon;
+
+  function getUserLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+  function success(position) {
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
+
+    document.getElementById("lat").innerText = lat;
+    document.getElementById("lon").innerText = lon;
+  }
+
+  function error(error) {
+    console.log("Error getting user location: " + error.message);
+
+    lat = "37.5642135"
+    lon = "127.0016985"
+
+    document.getElementById("lat").innerText = lat;
+    document.getElementById("lon").innerText = lon;
+  }
+
+  getUserLocation();lat = document.getElementById("lat").textContent;
+  lon = document.getElementById("lon").textContent;
+  lat = document.getElementById("lat").textContent;
+
+  console.log(lon, lat)
+</script>
+{% endblock %}
